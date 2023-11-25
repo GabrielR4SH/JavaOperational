@@ -98,30 +98,31 @@ public class OperacoesService {
         System.out.println("Comissão do sistema: R$" + comissaoSistema);
     }
 
-    // Restante do código permanece o mesmo
-	
-
-
     public static void verCompras(Usuario usuarioLogado, List<Venda> vendas) {
         List<Venda> comprasCliente = vendas.stream()
-                .filter(venda -> venda.getCliente().getUsername().equals(usuarioLogado.getUsername()))
+                .filter(venda -> {
+                    Cliente cliente = venda.getCliente();
+                    return cliente != null && cliente.equals(usuarioLogado.getCliente());
+                })
                 .collect(Collectors.toList());
 
         System.out.println("Compras realizadas pelo cliente:");
-        comprasCliente.forEach(venda -> {
-            System.out.println("Código da venda: " + venda.getCódigo());
-            System.out.println("Produtos comprados:");
-            venda.getItens().forEach(produto -> System.out.println(produto.getId() + " - " + produto.getNome()));
-            System.out.println("Valor total: R$" + venda.getValor());
-            System.out.println("Empresa: " + venda.getEmpresa().getNome());
-            System.out.println("------------------------------");
-        });
 
-        if (comprasCliente.isEmpty()) {
-            System.out.println("Nenhuma compra realizada.");
+        if (!comprasCliente.isEmpty()) {
+            comprasCliente.forEach(venda -> {
+                System.out.println("Código da venda: " + venda.getCódigo());
+                System.out.println("Produtos comprados:");
+                venda.getItens().forEach(produto -> System.out.println(produto.getNome()));
+                System.out.println("Valor total: R$" + venda.getValor());
+                System.out.println("Empresa: " + venda.getEmpresa().getNome());
+                System.out.println("------------------------------");
+            });
+        } else {
+            System.out.println("Nenhuma compra realizada pelo cliente.");
         }
     }
-    
+
+	
     public static void verVendasEmpresa(Usuario usuarioLogado, List<Venda> vendas) {
         if (usuarioLogado.getEmpresa() != null) {
             List<Venda> vendasEmpresa = vendas.stream()
@@ -149,7 +150,7 @@ public class OperacoesService {
                     .collect(Collectors.toList());
 
             System.out.println("Produtos da empresa:");
-            produtosEmpresa.forEach(produto -> System.out.println(produto.getId() + " - " + produto.getNome()));
+            produtosEmpresa.forEach(produto -> System.out.println("ID =>"+ produto.getId() + " - " + produto.getNome()));
         } else {
             System.out.println("Usuário não é uma empresa. Acesso negado.");
         }

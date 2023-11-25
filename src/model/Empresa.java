@@ -67,7 +67,7 @@ public class Empresa {
 	
 	 public void exibirInformacoes() {
 	        System.out.println("Nome da empresa: " + this.getNome());
-	        // Adicione outras informações públicas que desejar exibir
+	        
 	    }	
 	
 	

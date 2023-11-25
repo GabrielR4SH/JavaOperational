@@ -30,8 +30,8 @@ public class Inicializacao {
     }
 
     public static List<Empresa> inicializarEmpresas() {
-        Empresa empresa = new Empresa(2, "SafeWay Padaria", "30021423000159", 0.15, 0.0);
-        Empresa empresa2 = new Empresa(1, "Level Varejo", "53239160000154", 0.05, 0.0);
+    	Empresa empresa = new Empresa(1, "Level Varejo", "53239160000154", 0.05, 0.0);
+        Empresa empresa2 = new Empresa(2, "SafeWay Padaria", "30021423000159", 0.15, 0.0);
         Empresa empresa3 = new Empresa(3, "SafeWay Restaurante", "41361511000116", 0.20, 0.0);
 
         return Arrays.asList(empresa, empresa2, empresa3);
@@ -43,25 +43,21 @@ public class Inicializacao {
         // Produtos para SafeWay Padaria
         Empresa padaria = inicializarEmpresas().get(0);
         produtos.add(new Produto(1, "Pão Francês", 5, 3.50, padaria));
-        produtos.add(new Produto(2, "Rosquinha", 10, 2.50, padaria));
-        produtos.add(new Produto(3, "Leite", 8, 4.00, padaria));
-        produtos.add(new Produto(4, "Pão Doce", 15, 1.80, padaria));
-
+        produtos.add(new Produto(2, "Rosca", 10, 2.50, padaria));
+        produtos.add(new Produto(3, "Pão Doce", 8, 4.00, padaria));
+        
         // Produtos para Level Varejo
         Empresa varejo = inicializarEmpresas().get(1);
-        produtos.add(new Produto(5, "Coturno", 10, 400.0, varejo));
-        produtos.add(new Produto(6, "Jaqueta", 5, 25.50, varejo));
-        produtos.add(new Produto(7, "Gravata", 3, 30.00, varejo));
-        produtos.add(new Produto(8, "Sapato Social", 8, 15.75, varejo));
+        produtos.add(new Produto(4, "Coturno", 10, 400.0, varejo));
+        produtos.add(new Produto(5, "Gravata", 5, 25.50, varejo));
+        produtos.add(new Produto(6, "Sapato", 3, 30.00, varejo));
         
-
         // Produtos para SafeWay Restaurante
         Empresa restaurante = inicializarEmpresas().get(2);
-        produtos.add(new Produto(9, "Omelete", 10, 15.00, restaurante));
-        produtos.add(new Produto(10, "Frango Grelhado", 12, 18.50, restaurante));
-        produtos.add(new Produto(11, "Macarrão", 8, 22.75, restaurante));
-        produtos.add(new Produto(12, "Lasanha", 15, 12.50, restaurante));
-   
+        produtos.add(new Produto(7, "Lasanha", 10, 15.00, restaurante));
+        produtos.add(new Produto(8, "Hot-Dog", 12, 18.50, restaurante));
+        produtos.add(new Produto(9, "Frango Frito", 8, 22.75, restaurante));
+        
 
         return produtos;
     }
