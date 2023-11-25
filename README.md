@@ -40,7 +40,7 @@ O código-fonte está estruturado em várias classes para facilitar a manutenç�
 - `Produto`: Representa um produto disponível para compra, associado a uma empresa.
 - `Venda`: Representa uma transação de compra, contendo informações sobre os produtos, valor total e comissões.
 
-As operações específicas para clientes, empresas e administradores são gerenciadas pelos serviços `OperacoesService` e `AdminService`.
+As operações específicas para clientes, empresas e administradores são gerenciadas pelos serviços `OperacoesService` e `SistemaCompra`.
 
 ## Execução da Aplicação
 
@@ -49,6 +49,9 @@ A aplicação pode ser executada a partir do arquivo `Main.java`. Ao iniciar, o 
 **Nota:** A exibição da senha durante a entrada é ocultada por motivos de segurança.
 
 Certifique-se de ter o ambiente Java configurado corretamente para executar o aplicativo.
+
+![LaravelDocker (1)](https://github.com/GabrielR4SH/JavaOperational/assets/59832080/e97414bb-fd94-4251-81fa-66afb15c3460)
+
 
 ```bash
 java Main
