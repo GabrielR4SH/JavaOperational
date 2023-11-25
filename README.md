@@ -2,4 +2,5 @@
 Teste Backend
 
 #Separei o projeto em duas pastas para organizar a aplicação
-![model](https://github.com/GabrielR4SH/JavaOperational/assets/59832080/8e6523d4-ca7b-4293-967b-bb6f9a850c87)
+
+![model (1)](https://github.com/GabrielR4SH/JavaOperational/assets/59832080/e1d09a15-f974-436d-bc80-0b08e8f6eabf)
