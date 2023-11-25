@@ -3,4 +3,5 @@ Teste Backend
 
 #Separei o projeto em duas pastas para organizar a aplicação
 
-![model (1)](https://github.com/GabrielR4SH/JavaOperational/assets/59832080/e1d09a15-f974-436d-bc80-0b08e8f6eabf)
+
+![LaravelDocker](https://github.com/GabrielR4SH/JavaOperational/assets/59832080/f6d6675c-f8de-4ff2-94cc-973b4570b2ef)
