@@ -1,4 +1,4 @@
-
+package model;
 public class Produto {
 	private Integer id;
 	private String nome;

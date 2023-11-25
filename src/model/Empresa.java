@@ -1,3 +1,4 @@
+package model;
 
 public class Empresa {
 	private Integer id;
@@ -58,5 +59,7 @@ public class Empresa {
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
+	
+	
 
 }

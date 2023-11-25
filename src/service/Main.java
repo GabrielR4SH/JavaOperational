@@ -1,8 +1,15 @@
+package service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import model.Cliente;
+import model.Empresa;
+import model.Produto;
+import model.Usuario;
+import model.Venda;
 
 public class Main {
 
