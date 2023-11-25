@@ -156,4 +156,25 @@ public class OperacoesService {
         }
     }
 
+    
+ 	
+    public static void verTodasVendas(List<Venda> vendas) {
+        System.out.println("Todas as vendas realizadas:");
+        vendas.forEach(venda -> {
+            System.out.println("Código da venda: " + venda.getCódigo());
+            System.out.println("Produtos vendidos:");
+            venda.getItens().forEach(produto -> System.out.println(produto.getId() + " - " + produto.getNome()));
+            System.out.println("Valor total: R$" + venda.getValor());
+            System.out.println("Empresa: " + venda.getEmpresa().getNome());
+            System.out.println("Cliente: " + venda.getCliente().getNome());
+            System.out.println("------------------------------");
+        });
+    }
+
+    public static void verTodosProdutos(List<Produto> produtos) {
+        System.out.println("Todos os produtos disponíveis:");
+        produtos.forEach(produto -> System.out.println(produto.getId() + " - " + produto.getNome()));
+    }
+
+    
 }
