@@ -14,7 +14,7 @@ import model.Venda;
 public class OperacoesService {
 
     public static void realizarCompras(Usuario usuarioLogado, List<Cliente> clientes, List<Empresa> empresas,
-                                       List<Produto> produtos, List<Produto> carrinho, List<Venda> vendas) {
+            List<Produto> produtos, List<Produto> carrinho, List<Venda> vendas) {
         Scanner sc = new Scanner(System.in);
         AtomicInteger escolhaProduto = new AtomicInteger(0);
 
@@ -36,11 +36,11 @@ public class OperacoesService {
                 Produto produtoEscolhido = produtos.stream().filter(produto -> produto.getId() == escolhaProduto.get())
                         .findFirst().orElse(null);
 
-                if (produtoEscolhido != null) {
+                if (produtoEscolhido != null && produtoEscolhido.getEmpresa().getId() == escolhaEmpresa) {
                     carrinho.add(produtoEscolhido);
                     System.out.println("Produto adicionado ao carrinho.");
                 } else {
-                    System.out.println("Produto não encontrado.");
+                    System.out.println("Produto não encontrado ou não disponível nesta empresa.");
                 }
             }
         } while (escolhaProduto.get() != 0);
@@ -48,11 +48,11 @@ public class OperacoesService {
         System.out.println("Resumo do carrinho:");
         carrinho.forEach(produto -> System.out.println(produto.getId() + " - " + produto.getNome()));
 
-        // Implemente o restante da lógica conforme necessário
+        finalizarCompra(usuarioLogado, empresas, carrinho, vendas);
     }
 
     public static void finalizarCompra(Usuario usuarioLogado, List<Empresa> empresas, List<Produto> carrinho,
-                                       List<Venda> vendas) {
+            List<Venda> vendas) {
         if (carrinho.isEmpty()) {
             System.out.println("Carrinho vazio. Nenhuma compra realizada.");
             return;
@@ -78,16 +78,29 @@ public class OperacoesService {
             return;
         }
 
-        Venda venda = new Venda(vendas.size() + 1, carrinho, valorTotal, 0.0, empresaEscolhida,
+        double taxaComissao = empresaEscolhida.getTaxa();
+        double comissaoSistema = valorTotal * taxaComissao;
+        double valorLiquido = valorTotal - comissaoSistema;
+
+        Venda venda = new Venda(vendas.size() + 1, carrinho, valorLiquido, comissaoSistema, empresaEscolhida,
                 usuarioLogado.getCliente());
         vendas.add(venda);
 
-        empresaEscolhida.setSaldo(empresaEscolhida.getSaldo() + valorTotal);
+        empresaEscolhida.setSaldo(empresaEscolhida.getSaldo() + valorLiquido);
+        empresaEscolhida.setTaxaComissaoSistema(comissaoSistema);
 
         carrinho.clear();
 
         System.out.println("Compra realizada com sucesso!");
+        System.out.println("Resumo da compra:");
+        System.out.println("Valor total da compra: R$" + valorTotal);
+        System.out.println("Taxa de comissão da empresa: " + taxaComissao);
+        System.out.println("Comissão do sistema: R$" + comissaoSistema);
     }
+
+    // Restante do código permanece o mesmo
+	
+
 
     public static void verCompras(Usuario usuarioLogado, List<Venda> vendas) {
         List<Venda> comprasCliente = vendas.stream()
@@ -108,4 +121,38 @@ public class OperacoesService {
             System.out.println("Nenhuma compra realizada.");
         }
     }
+    
+    public static void verVendasEmpresa(Usuario usuarioLogado, List<Venda> vendas) {
+        if (usuarioLogado.getEmpresa() != null) {
+            List<Venda> vendasEmpresa = vendas.stream()
+                    .filter(venda -> venda.getEmpresa().getId() == usuarioLogado.getEmpresa().getId())
+                    .collect(Collectors.toList());
+
+            System.out.println("Vendas realizadas pela empresa:");
+            vendasEmpresa.forEach(venda -> {
+                System.out.println("Código da venda: " + venda.getCódigo());
+                System.out.println("Produtos vendidos:");
+                venda.getItens().forEach(produto -> System.out.println(produto.getId() + " - " + produto.getNome()));
+                System.out.println("Valor total: R$" + venda.getValor());
+                System.out.println("Taxa de comissão do sistema: " + venda.getComissaoSistema());
+                System.out.println("------------------------------");
+            });
+        } else {
+            System.out.println("Usuário não é uma empresa. Acesso negado.");
+        }
+    }
+
+    public static void verProdutosEmpresa(Usuario usuarioLogado, List<Produto> produtos) {
+        if (usuarioLogado.getEmpresa() != null) {
+            List<Produto> produtosEmpresa = produtos.stream()
+                    .filter(produto -> produto.getEmpresa().getId() == usuarioLogado.getEmpresa().getId())
+                    .collect(Collectors.toList());
+
+            System.out.println("Produtos da empresa:");
+            produtosEmpresa.forEach(produto -> System.out.println(produto.getId() + " - " + produto.getNome()));
+        } else {
+            System.out.println("Usuário não é uma empresa. Acesso negado.");
+        }
+    }
+
 }

@@ -59,6 +59,16 @@ public class Empresa {
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
+
+	public void setTaxaComissaoSistema(double comissaoSistema) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	 public void exibirInformacoes() {
+	        System.out.println("Nome da empresa: " + this.getNome());
+	        // Adicione outras informações públicas que desejar exibir
+	    }	
 	
 	
 
