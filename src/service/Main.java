@@ -1,5 +1,7 @@
 package service;
 
+import java.awt.*;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,36 +28,63 @@ public class Main {
         executar(usuarios, clientes, empresas, produtos, carrinho, vendas);
     }
 
+ // ...
+
     public static void executar(List<Usuario> usuarios, List<Cliente> clientes, List<Empresa> empresas,
             List<Produto> produtos, List<Produto> carrinho, List<Venda> vendas) {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Entre com seu usuário e senha:");
-        System.out.print("Usuário: ");
-        String username = sc.next();
-        System.out.print("Senha: ");
-        String senha = sc.next();
 
-        List<Usuario> usuariosSearch = usuarios.stream().filter(x -> x.getUsername().equals(username))
-                .collect(Collectors.toList());
+        String inputUsername = null;
+        char[] inputSenha = null;
 
-        if (!usuariosSearch.isEmpty()) {
-            Usuario usuarioLogado = usuariosSearch.get(0);
+        do {
+            System.out.print("Usuário: ");
+            inputUsername = sc.next();
+            inputSenha = readPasswordFromSystemIn("Senha: ");
 
-            if (usuarioLogado.getSenha().equals(senha)) {
-                if (usuarioLogado.getUsername().equals("admin")) {
-                    menuAdmin(usuarios, clientes, empresas, produtos, carrinho, vendas);
+            final String username = inputUsername;
+            final char[] senha = inputSenha;
+
+            List<Usuario> usuariosSearch = usuarios.stream().filter(x -> x.getUsername().equals(username))
+                    .collect(Collectors.toList());
+
+            if (!usuariosSearch.isEmpty()) {
+                Usuario usuarioLogado = usuariosSearch.get(0);
+
+                if (Arrays.equals(usuarioLogado.getSenha().toCharArray(), senha)) {
+                    if (usuarioLogado.getUsername().equals("admin")) {
+                        menuAdmin(usuarios, clientes, empresas, produtos, carrinho, vendas);
+                    } else {
+                        menuUsuario(usuarioLogado, usuarios, clientes, empresas, produtos, carrinho, vendas);
+                    }
+                    break; // Saindo do loop se a autenticação for bem-sucedida
                 } else {
-                    menuUsuario(usuarioLogado, usuarios, clientes, empresas, produtos, carrinho, vendas);
+                    System.out.println("Senha incorreta. Tente novamente.");
                 }
             } else {
-                System.out.println("Senha incorreta");
+                System.out.println("Usuário não encontrado. Tente novamente.");
             }
-        } else {
-            System.out.println("Usuário não encontrado");
-        }
+        } while (true);
     }
 
+    //Metodo para mascarar a senha no Console da IDE
+    private static char[] readPasswordFromSystemIn(String prompt) {
+        System.out.print(prompt);
+
+        try {
+            char[] password = System.console().readPassword();
+            if (password != null) {
+                return password;
+            }
+        } catch (NullPointerException e) {
+            // Ignorar e continuar com a abordagem alternativa
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine().toCharArray();
+    }	
 	
     public static void menuUsuario(Usuario usuarioLogado, List<Usuario> usuarios, List<Cliente> clientes, List<Empresa> empresas,
             List<Produto> produtos, List<Produto> carrinho, List<Venda> vendas) {	
