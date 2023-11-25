@@ -50,7 +50,8 @@ A aplicação pode ser executada a partir do arquivo `Main.java`. Ao iniciar, o 
 
 Certifique-se de ter o ambiente Java configurado corretamente para executar o aplicativo.
 
-![LaravelDocker (1)](https://github.com/GabrielR4SH/JavaOperational/assets/59832080/e97414bb-fd94-4251-81fa-66afb15c3460)
+
+![LaravelDocker (2)](https://github.com/GabrielR4SH/JavaOperational/assets/59832080/0f324bb6-a014-49b2-8c95-5cbfb20bf22c)
 
 
 ```bash
